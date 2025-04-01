@@ -7,7 +7,7 @@ function Clima() {
 
   const buscarClima = async () => {
     try {
-      const res = await axios.get(`http://localhost:8000/clima/${comuna}`)
+      const res = await axios.get(`https://mi-web-fastapi.onrender.com/clima/${comuna}`)
       setDatos(res.data)
     } catch (err) {
       setDatos({ error: 'No se pudo obtener el clima.' })
