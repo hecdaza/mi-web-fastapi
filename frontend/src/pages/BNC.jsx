@@ -5,7 +5,7 @@ function BNC() {
   const [leyes, setLeyes] = useState([])
 
   useEffect(() => {
-    axios.get('http://localhost:8000/bnc/')
+    axios.get('https://mi-web-fastapi.onrender.com/bnc')
       .then(res => setLeyes(res.data))
       .catch(() => setLeyes(null))
   }, [])
