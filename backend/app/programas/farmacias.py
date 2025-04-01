@@ -10,19 +10,25 @@ comunas_objetivo = {
 }
 
 def obtener_farmacias():
-    response = requests.get(URL, timeout=10)
-    response.raise_for_status()
-    data = response.json()
-    resultado = {}
+    try:
+        response = requests.get(URL, timeout=10)
+        response.raise_for_status()
+        data = response.json()
 
-    for comuna_base, nombres_equivalentes in comunas_objetivo.items():
-        farmacias = [
-            f for f in data
-            if f["comuna_nombre"].strip().upper() in [n.upper() for n in nombres_equivalentes]
-        ]
-        resultado[comuna_base] = {
-            "fecha": str(datetime.now().date()),
-            "farmacias": farmacias
-        }
+        resultado = {}
 
-    return resultado
+        for comuna_base, nombres_equivalentes in comunas_objetivo.items():
+            farmacias = [
+                f for f in data
+                if f.get("comuna_nombre", "").strip().upper() in [n.upper() for n in nombres_equivalentes]
+            ]
+            resultado[comuna_base] = {
+                "fecha": str(datetime.now().date()),
+                "total": len(farmacias),
+                "farmacias": farmacias
+            }
+
+        return resultado
+
+    except Exception as e:
+        return {"error": f"Error al obtener farmacias: {str(e)}"}
