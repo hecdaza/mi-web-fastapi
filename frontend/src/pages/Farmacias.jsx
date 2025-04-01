@@ -5,7 +5,7 @@ function Farmacias() {
   const [datos, setDatos] = useState(null)
 
   useEffect(() => {
-    axios.get('http://localhost:8000/farmacias/')
+    axios.get('https://mi-web-fastapi.onrender.com/farmacias')
       .then(res => setDatos(res.data))
       .catch(() => setDatos({ error: 'No se pudieron cargar las farmacias.' }))
   }, [])
